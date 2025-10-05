@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project One — Detail</title>
+  <meta name="description" content="Project detail page." />
+  <style>
+    :root{
+      --bg:#0d0e10; --ink:#e9eaf0; --muted:#a9aebb; --panel:#14161b; --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+         color:var(--ink); background:var(--bg); line-height:1.55}
+    .wrap{max-width:900px; margin:0 auto; padding:28px 20px 80px}
+    a{color:inherit}
+    header{padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08)}
+    .back{opacity:.85; text-decoration:none; padding:8px 12px; border-radius:12px;
+          border:1px solid rgba(255,255,255,0.14)}
+    .panel{margin-top:22px; background:var(--panel); border:1px solid rgba(255,255,255,0.08);
+           border-radius:calc(var(--radius) + 6px); padding:20px;
+           box-shadow:0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)}
+    .hero-img{width:100%; border-radius:12px; display:block; object-fit:cover}
+    h1{margin:.6em 0 .4em; font-size:clamp(28px, 5vw, 44px)}
+    .bio{color:var(--muted); margin-top:10px}
+    footer{margin-top:40px; padding-top:20px; color:var(--muted); border-top:1px solid rgba(255,255,255,0.09)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="back" href="index.html">← Back to Home</a>
+    </header>
+
+    <main class="panel">
+      <!-- IMAGE -->
+      <img class="hero-img" src="images/project-1.jpg" alt="Project One image placeholder" />
+
+      <!-- TITLE -->
+      <h1>Project One</h1>
+
+      <!-- BIO / DESCRIPTION -->
+      <p class="bio">
+        A short bio/description of the project goes here. Summarize the purpose, your role,
+        key techniques, and the main result. Keep it 3–6 sentences for readability.
+      </p>
+    </main>
+
+    <footer>
+      © <span id="y"></span> Your Name
+    </footer>
+  </div>
+
+  <script>
+    // optional: set year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
