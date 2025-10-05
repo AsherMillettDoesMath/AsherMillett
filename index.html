@@ -3,117 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name — Portfolio / CV</title>
-  <meta name="description" content="Short one‑line description of you and your work." />
-  <meta property="og:title" content="Your Name — Portfolio / CV" />
-  <meta property="og:description" content="Short one‑line description of you and your work." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://your-username.github.io/" />
+  <title>Magnum Opus Studio</title>
+  <meta name="description" content="A living portfolio with intuitive editing tools for shaping your personal magnum opus." />
   <link rel="icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" role="banner">
-    <div class="container">
-      <div class="brand">
-        <span class="logo" aria-hidden="true">◆</span>
-        <a href="#home" class="brand-name">Your Name</a>
-      </div>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
-      <nav id="nav" class="site-nav" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#publications">Publications</a>
-        <a href="#cv">CV</a>
-        <a href="#contact">Contact</a>
-      </nav>
+  <header class="top-bar" role="banner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">✶</span>
+      <span class="brand-text" data-editable="hero.name"></span>
+    </div>
+    <div class="toolbar">
+      <button id="editToggle" type="button" class="pill">Enter edit mode</button>
+      <button id="resetContent" type="button" class="pill editor-only">Reset content</button>
     </div>
   </header>
 
-  <main id="main">
-    <section id="home" class="hero">
-      <div class="container">
-        <h1>Your Name</h1>
-        <p class="tagline">Your Title · Research Area · City</p>
-        <div class="cta">
-          <a class="button" href="#projects">View Projects</a>
-          <a class="button outline" href="#contact">Contact Me</a>
+  <main id="main" class="page">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-media">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <p class="eyebrow">Personal studio</p>
+        <h1 id="hero-heading" data-editable="hero.tagline"></h1>
+        <p class="lead" data-editable="hero.intro"></p>
+        <div class="hero-actions">
+          <a id="heroCta" class="button" href="#" data-editable="hero.ctaText"></a>
+          <button class="button ghost editor-only" type="button" data-editor="hero">Edit hero details</button>
         </div>
       </div>
+      <div class="hero-glow" aria-hidden="true"></div>
     </section>
 
-    <section id="about" class="section">
-      <div class="container">
-        <h2>About</h2>
-        <p>
-          Write a concise bio here (3–5 sentences). Mention current role,
-          interests, and what you're looking for.
-        </p>
-        <ul class="keypoints">
-          <li>Focus area #1</li>
-          <li>Focus area #2</li>
-          <li>Focus area #3</li>
-        </ul>
-      </div>
-    </section>
+    <nav class="tab-nav" aria-label="Sections">
+      <button class="tab active" data-tab="gallery">Gallery</button>
+      <button class="tab" data-tab="academics">Academics</button>
+      <button class="tab" data-tab="research">Research</button>
+      <button class="tab" data-tab="cv">CV</button>
+      <button class="tab" data-tab="books">Books</button>
+      <button class="tab" data-tab="essays">Essays</button>
+    </nav>
 
-    <section id="projects" class="section alt">
-      <div class="container">
-        <h2>Projects</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Project Title</h3>
-            <p>1–2 sentence summary of what this project is and why it matters.</p>
-            <p class="meta">Tech: HTML, CSS, JS</p>
-            <p><a href="#" class="chip">Live Demo</a> <a href="#" class="chip">Source</a></p>
-          </article>
-          <article class="card">
-            <h3>Another Project</h3>
-            <p>Brief description and your contribution. Add links below.</p>
-            <p class="meta">Tech: Python, NumPy</p>
-            <p><a href="#" class="chip">Paper</a> <a href="#" class="chip">Repo</a></p>
-          </article>
+    <section class="tab-panels">
+      <article class="panel active" data-panel="gallery" aria-labelledby="gallery-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="gallery-heading">Gallery</h2>
+            <p class="panel-sub" data-editable="galleryIntro"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-add="gallery">Add piece</button>
+          </div>
+        </header>
+        <div id="galleryGrid" class="card-grid"></div>
+      </article>
+
+      <article class="panel" data-panel="academics" aria-labelledby="academics-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="academics-heading">Academics</h2>
+            <p class="panel-sub" data-editable="academicsIntro"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-add="academics">Add milestone</button>
+          </div>
+        </header>
+        <div id="academicsTimeline" class="timeline"></div>
+      </article>
+
+      <article class="panel" data-panel="research" aria-labelledby="research-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="research-heading">Research</h2>
+            <p class="panel-sub" data-editable="researchIntro"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-add="research">Add research thread</button>
+          </div>
+        </header>
+        <div id="researchList" class="stack"></div>
+      </article>
+
+      <article class="panel" data-panel="cv" aria-labelledby="cv-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="cv-heading">Curriculum Vitae</h2>
+            <p class="panel-sub" data-editable="cv.summary"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-editor="cv">Edit CV details</button>
+            <button class="pill ghost editor-only" type="button" data-add="cvHighlights">Add highlight</button>
+          </div>
+        </header>
+        <div class="cv-actions">
+          <a id="cvLink" class="button" href="#" target="_blank" rel="noopener"></a>
         </div>
-      </div>
-    </section>
+        <div id="cvHighlights" class="card-grid"></div>
+      </article>
 
-    <section id="publications" class="section">
-      <div class="container">
-        <h2>Publications</h2>
-        <ol class="pubs">
-          <li><strong>Title.</strong> Journal/venue, year. <a href="#">PDF</a> · <a href="#">DOI</a></li>
-          <li><strong>Another Title.</strong> arXiv, year. <a href="#">arXiv</a></li>
-        </ol>
-      </div>
-    </section>
+      <article class="panel" data-panel="books" aria-labelledby="books-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="books-heading">Bookshelf</h2>
+            <p class="panel-sub" data-editable="booksIntro"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-add="books">Add book</button>
+          </div>
+        </header>
+        <div id="bookGallery" class="card-grid slender"></div>
+      </article>
 
-    <section id="cv" class="section alt">
-      <div class="container">
-        <h2>CV</h2>
-        <p>Keep your latest CV here:</p>
-        <p><a class="button" href="assets/cv.pdf">Download CV (PDF)</a></p>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <h2>Contact</h2>
-        <ul class="contact">
-          <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
-          <li>GitHub: <a href="https://github.com/your-username">github.com/your-username</a></li>
-          <li>LinkedIn: <a href="#">linkedin.com/in/your-handle</a></li>
-        </ul>
-      </div>
+      <article class="panel" data-panel="essays" aria-labelledby="essays-heading">
+        <header class="panel-header">
+          <div>
+            <h2 id="essays-heading">Essays &amp; Notes</h2>
+            <p class="panel-sub" data-editable="essaysIntro"></p>
+          </div>
+          <div class="panel-actions">
+            <button class="pill ghost editor-only" type="button" data-add="essays">Add essay</button>
+          </div>
+        </header>
+        <div id="essayStack" class="stack"></div>
+      </article>
     </section>
   </main>
 
   <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+    <div>
+      <p class="footnote" data-editable="footerNote"></p>
+      <small class="timestamp">Last saved <time id="lastSaved" datetime=""></time></small>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" data-close aria-label="Close editor">×</button>
+      <div class="modal-body">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription" class="modal-description"></p>
+        <form id="modalForm" novalidate></form>
+      </div>
+    </div>
+  </div>
+
+  <template id="timelineItemTemplate">
+    <article class="timeline-item">
+      <div class="timeline-dot" aria-hidden="true"></div>
+      <div class="timeline-card">
+        <header>
+          <h3></h3>
+          <p class="timeline-sub"></p>
+        </header>
+        <p class="timeline-copy"></p>
+      </div>
+    </article>
+  </template>
+
+  <template id="essayItemTemplate">
+    <article class="essay-card">
+      <header>
+        <h3></h3>
+        <span class="essay-meta"></span>
+      </header>
+      <p class="essay-excerpt"></p>
+      <a class="essay-link" href="#" target="_blank" rel="noopener">Read essay</a>
+    </article>
+  </template>
+
+  <script src="js/main.js" type="module"></script>
 </body>
 </html>
