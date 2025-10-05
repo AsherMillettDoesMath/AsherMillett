@@ -3,331 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Live‑Editable Site</title>
-  <meta name="description" content="A sleek, single‑file website with built‑in editing tools. Save to your browser and export to GitHub Pages." />
+  <title>Reflect — Ultra‑Minimal Frame</title>
+  <meta name="description" content="An ultra‑minimal, glossy, post‑modern site frame that works on plain GitHub Pages." />
   <style>
+    /*
+      Ultra‑minimal, zero‑dependency frame
+      — No external fonts, no JS required
+      — Works as a single index.html on GitHub Pages
+    */
     :root{
-      --bg:#0b0f14; --panel:#0f1520; --soft:#141a26; --text:#e6eef8; --muted:#b8c2cf; --brand:#6aa2ff; --accent:#a8ffbf;
-      --ring:0 0 0 2px rgba(106,162,255,.3);
+      --bg: #0d0e10;
+      --panel: #14161b;
+      --ink: #e9eaf0;
+      --muted: #a9aebb;
+      --accent: #70e1ff;
+      --radius: 16px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0; font:15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji"; color:var(--text); background:radial-gradient(1200px 700px at 70% -100px, #132033 0%, transparent 60%), var(--bg);}    
-
-    /* Layout */
-    .app{display:grid; grid-template-columns:280px 1fr; min-height:100vh}
-    aside{background:linear-gradient(180deg, var(--panel), var(--soft)); border-right:1px solid #1e2a3c; position:relative}
-    header.topbar{display:flex; gap:.5rem; align-items:center; padding:12px 16px; position:sticky; top:0; z-index:5; background:linear-gradient(180deg, rgba(11,15,20,.85), rgba(11,15,20,.6)); backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid #1e2a3c}
-    header .brand{font-weight:700; letter-spacing:.3px}
-    header .pill{margin-left:auto; padding:6px 10px; border:1px solid #203049; border-radius:999px; color:var(--muted)}
-
-    /* Sidebar */
-    .nav{padding:12px}
-    .nav h2{font-size:.9rem; color:var(--muted); margin:8px 10px}
-    .tabs{display:flex; flex-direction:column; gap:6px}
-    .tab{display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid #1e2a3c; border-radius:12px; background:#0d1420; cursor:pointer; user-select:none}
-    .tab[aria-selected="true"]{outline:var(--ring); border-color:#2a3b55; background:#0f1b2c}
-    .tab .title{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-    .tab .move{opacity:.7; font-size:12px}
-
-    .controls{position:sticky; bottom:0; display:grid; gap:8px; padding:12px; background:linear-gradient(180deg, rgba(15,21,32,.2), rgba(15,21,32,.9)); border-top:1px solid #1e2a3c}
-    .controls button,.toolbar button{appearance:none; border:1px solid #28405f; background:#0f1726; color:var(--text); padding:8px 10px; border-radius:10px; cursor:pointer}
-    .controls button:hover,.toolbar button:hover{border-color:#395b8b}
-    .controls .row{display:flex; gap:8px}
-
-    /* Main */
-    main{position:relative;}
-    .toolbar{position:sticky; top:0; display:flex; flex-wrap:wrap; gap:8px; padding:12px; background:linear-gradient(180deg, rgba(11,15,20,.85), rgba(11,15,20,.6)); backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid #1e2a3c; z-index:6}
-    .toolbar .status{margin-left:auto; color:var(--muted)}
-
-    .canvas{padding:32px; max-width:1000px; margin:0 auto}
-    .section{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); border:1px solid #203049; border-radius:16px; padding:24px; margin:16px 0}
-    .section[contenteditable="true"]{outline:var(--ring)}
-    h1,h2,h3{line-height:1.2}
-    h1{font-size:2rem; margin:.2rem 0 1rem}
-    h2{font-size:1.3rem; margin:1rem 0 .5rem; color:var(--accent)}
-    p{color:#d8e1ee}
-    a{color:var(--brand); text-decoration:none}
-    a:hover{text-decoration:underline}
-    img{max-width:100%; height:auto; border-radius:12px; border:1px solid #1f2a3b}
-    ul{margin:.5rem 0 .5rem 1.2rem}
-
-    .ghost{opacity:.35}
-    .hidden{display:none}
-    .small{font-size:.85rem; color:var(--muted)}
-
-    @media (max-width: 900px){
-      .app{grid-template-columns:1fr}
-      aside{display:none}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 600px at 90% -20%, rgba(112,225,255,0.10), transparent 60%),
+        radial-gradient(1200px 800px at -10% -20%, rgba(255,255,255,0.06), transparent 60%),
+        var(--bg);
+      line-height:1.55;
+      letter-spacing:.2px;
     }
+    a{color:inherit}
+    .wrap{max-width:1000px; margin:0 auto; padding:28px 20px 80px}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(120%) blur(6px)}
+    nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(13,14,16,0.75), rgba(13,14,16,0));}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
+    .brand .dot{width:12px; height:12px; border-radius:50%; background: conic-gradient(from 160deg, #fff, var(--accent), #9aa0ff, #fff); box-shadow:0 0 10px rgba(112,225,255,0.9)}
+    .links a{opacity:.8; text-decoration:none; padding:8px 10px; border-radius:10px}
+    .links a:hover{opacity:1; background:rgba(255,255,255,0.06)}
+
+    /* Hero */
+    .hero{margin:48px auto 28px; padding:28px; border-radius: calc(var(--radius) + 8px); background: var(--panel); border:1px solid rgba(255,255,255,0.08); box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06); position:relative; overflow:hidden}
+    .hero::before{content:""; position:absolute; inset:-1px; pointer-events:none; border-radius:inherit; background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 28%, rgba(255,255,255,0.0) 60%)}
+    .kicker{color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:.25em; font-size:12px}
+    h1{font-size: clamp(34px, 6vw, 60px); line-height:1.05; margin:.3em 0 .2em}
+    p.lead{max-width:60ch; color:var(--muted); margin:0}
+    .cta{display:flex; gap:12px; margin-top:22px}
+    .btn{display:inline-block; text-decoration:none; padding:10px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.14); background:linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)); font-weight:600; box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 8px 30px rgba(0,0,0,0.35)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.accent{border-color: rgba(112,225,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 10px 40px rgba(112,225,255,0.28)}
+
+    /* Cards */
+    .grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-top:26px}
+    .card{position:relative; padding:18px; border-radius: var(--radius); background: rgba(22,24,29, 0.85); border: 1px solid rgba(255,255,255,0.07); box-shadow: 0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05); overflow:hidden}
+    .card::after{content:""; position:absolute; inset:0; background: radial-gradient(260px 110px at 110% -10%, rgba(112,225,255,0.18), transparent 60%); mix-blend-mode: screen; pointer-events:none}
+    .mono{font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; color:#bac0cc}
+
+    footer{margin:40px 0 0; padding:30px 20px; color: var(--muted); border-top:1px solid rgba(255,255,255,0.09)}
+
+    /* Tiny status ribbon for quick "is it deployed?" check */
+    .status{position:fixed; right:12px; bottom:12px; font-size:12px; padding:6px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.16); background:rgba(0,0,0,0.35)}
   </style>
 </head>
 <body>
-<div class="app" id="app">
-  <aside>
-    <header class="topbar">
-      <div class="brand">✦ My Site</div>
-      <div class="pill small" id="saveState">Unsaved</div>
-    </header>
-    <div class="nav">
-      <h2>Sections</h2>
-      <div id="tabs" class="tabs" role="tablist" aria-label="Site Sections"></div>
-    </div>
-    <div class="controls">
-      <div class="row">
-        <button id="addSectionBtn">＋ Add Section</button>
-        <button id="deleteSectionBtn" title="Delete current section">🗑️</button>
+  <header>
+    <nav class="wrap">
+      <div class="brand"><span class="dot"></span> Reflect</div>
+      <div class="links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </div>
-      <div class="row">
-        <button id="saveBtn">💾 Save</button>
-        <button id="exportBtn" title="Download this page as a single HTML file">⬇️ Export</button>
-      </div>
-      <div class="row">
-        <button id="importBtn">⬆️ Import</button>
-        <input id="importFile" type="file" accept="text/html,.html" class="hidden" />
-      </div>
-    </div>
-  </aside>
+    </nav>
+  </header>
 
-  <main>
-    <div class="toolbar" id="toolbar">
-      <button id="toggleEdit">✏️ Edit</button>
-      <button data-cmd="bold"><b>B</b></button>
-      <button data-cmd="italic"><i>I</i></button>
-      <button data-cmd="underline"><u>U</u></button>
-      <button id="h2Btn">H2</button>
-      <button id="ulBtn">• List</button>
-      <button id="linkBtn">🔗 Link</button>
-      <button id="imgBtn">🖼️ Image</button>
-      <input id="imgUpload" type="file" accept="image/*" class="hidden" />
-      <span class="status small" id="mode">Read‑only</span>
-    </div>
+  <main class="wrap">
+    <section class="hero" id="top">
+      <p class="kicker">POST‑MODERN MINIMAL</p>
+      <h1>Your Name — Portfolio / CV</h1>
+      <p class="lead">Ultra‑minimal glossy frame. Zero dependencies. Safe to drop as a single <code>index.html</code> on GitHub Pages.</p>
+      <div class="cta">
+        <a class="btn accent" href="#work">View Work</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </section>
 
-    <div class="canvas" id="canvas">
-      <!-- Sections will render here -->
-    </div>
+    <section id="work" class="grid">
+      <article class="card">
+        <p class="kicker">PROJECT</p>
+        <h2>Title One</h2>
+        <p>Add a one‑line description. <span class="mono">[Role] · [Year]</span></p>
+      </article>
+      <article class="card">
+        <p class="kicker">PROJECT</p>
+        <h2>Title Two</h2>
+        <p>Replace with a short blurb and a link.</p>
+      </article>
+      <article class="card">
+        <p class="kicker">PROJECT</p>
+        <h2>Title Three</h2>
+        <p>Another concise description with impact.</p>
+      </article>
+    </section>
+
+    <section id="about" class="hero" style="margin-top:34px">
+      <p class="kicker">ABOUT</p>
+      <p>One paragraph bio. Minimal, confident, human. Mention your research interests, current focus, and a highlight or two.</p>
+    </section>
+
+    <section id="contact" class="grid">
+      <article class="card">
+        <p class="kicker">CONTACT</p>
+        <h2>Email</h2>
+        <p><a href="mailto:you@example.com" class="btn">you@example.com</a></p>
+      </article>
+      <article class="card">
+        <p class="kicker">SOCIAL</p>
+        <h2>Links</h2>
+        <p>
+          <a class="btn" href="#">GitHub</a>
+          <a class="btn" href="#">LinkedIn</a>
+        </p>
+      </article>
+    </section>
   </main>
-</div>
 
-<script>
-(function(){
-  const STORAGE_KEY = 'live_edit_site_v1';
-  const $ = sel => document.querySelector(sel);
-  const $$ = sel => Array.from(document.querySelectorAll(sel));
-  const state = {
-    editing:false,
-    sections: [
-      { id: crypto.randomUUID(), title: 'Home', html: `<h1>Hi, I\'m <span style="color: var(--brand)">Your Name</span></h1><p>Welcome to my website. Toggle <em>Edit</em> to start customizing. Add sections, links, and images. Your changes save to this browser.</p>` },
-      { id: crypto.randomUUID(), title: 'Projects', html: `<h2>Featured Work</h2><ul><li>Project Alpha — real‑time visualization</li><li>Project Beta — research notes</li></ul>` },
-      { id: crypto.randomUUID(), title: 'About', html: `<h2>About Me</h2><p>Short bio. Interests, skills, and contact.</p>` }
-    ],
-    activeId: null,
-    dirty:false,
-  };
+  <footer class="wrap">
+    <div>© <span id="y"></span> Your Name. Ultra‑minimal glossy frame.</div>
+  </footer>
 
-  // Load saved content
-  function load(){
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      try{ Object.assign(state, JSON.parse(raw)); }catch(e){ console.warn('Failed to parse saved site:', e); }
-    }
-    if(!state.activeId && state.sections[0]) state.activeId = state.sections[0].id;
-    renderTabs();
-    renderSections();
-    updateSavePill();
-  }
+  <div class="status">Live ✓ — If you see this on your Pages URL, deployment is working.</div>
 
-  function save(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({sections: state.sections, activeId: state.activeId}));
-    state.dirty=false; updateSavePill();
-  }
-
-  function updateSavePill(){
-    const el = $('#saveState');
-    el.textContent = state.dirty ? 'Unsaved' : 'Saved';
-    el.classList.toggle('ghost', !state.dirty);
-  }
-
-  function setDirty(){ state.dirty=true; updateSavePill(); }
-
-  /* Render sidebar tabs */
-  function renderTabs(){
-    const tabs = $('#tabs');
-    tabs.innerHTML = '';
-    state.sections.forEach((sec, idx)=>{
-      const node = document.createElement('button');
-      node.className='tab';
-      node.setAttribute('role','tab');
-      node.setAttribute('aria-selected', sec.id===state.activeId);
-      node.title = 'Drag to reorder';
-      node.draggable = true;
-      node.dataset.id = sec.id;
-      node.innerHTML = `<span class="move">≡</span><span class="title" contenteditable="${state.editing}">${sec.title}</span>`;
-      node.addEventListener('click', e=>{ state.activeId=sec.id; renderSections(); renderTabs(); });
-
-      // inline rename
-      node.querySelector('.title').addEventListener('input', (e)=>{
-        sec.title=e.currentTarget.textContent.trim()||'Untitled';
-        setDirty();
-      });
-
-      // drag & drop reorder
-      node.addEventListener('dragstart', (e)=>{ e.dataTransfer.setData('text/plain', sec.id); });
-      node.addEventListener('dragover', (e)=> e.preventDefault());
-      node.addEventListener('drop', (e)=>{
-        e.preventDefault();
-        const fromId = e.dataTransfer.getData('text/plain');
-        const toId = sec.id;
-        if(fromId===toId) return;
-        const arr = state.sections;
-        const fromIdx = arr.findIndex(s=>s.id===fromId);
-        const toIdx   = arr.findIndex(s=>s.id===toId);
-        const [moved] = arr.splice(fromIdx,1);
-        arr.splice(toIdx,0,moved);
-        setDirty();
-        renderTabs(); renderSections();
-      });
-      tabs.appendChild(node);
-    });
-  }
-
-  /* Render main content */
-  function renderSections(){
-    const canvas = $('#canvas');
-    canvas.innerHTML='';
-    const active = state.sections.find(s=>s.id===state.activeId) || state.sections[0];
-    if(!active) return;
-
-    const section = document.createElement('section');
-    section.className='section';
-    section.id = 'section-'+active.id;
-    section.contentEditable = String(state.editing);
-    section.innerHTML = active.html;
-
-    section.addEventListener('input', ()=>{ active.html = section.innerHTML; setDirty(); });
-
-    canvas.appendChild(section);
-    $('#mode').textContent = state.editing ? 'Editing' : 'Read‑only';
-    $$('#tabs .title').forEach(t=> t.setAttribute('contenteditable', String(state.editing)));
-  }
-
-  // Toolbar actions
-  const toolbar = $('#toolbar');
-  toolbar.addEventListener('click', (e)=>{
-    const btn = e.target.closest('button');
-    if(!btn) return;
-    if(btn.id==='toggleEdit'){ state.editing=!state.editing; renderSections(); renderTabs(); return; }
-    if(!state.editing) return;
-
-    const cmd = btn.dataset.cmd;
-    if(cmd){ document.execCommand(cmd, false, null); setDirty(); return; }
-    if(btn.id==='h2Btn'){ document.execCommand('formatBlock', false, 'h2'); setDirty(); return; }
-    if(btn.id==='ulBtn'){ document.execCommand('insertUnorderedList'); setDirty(); return; }
-    if(btn.id==='linkBtn'){
-      const url = prompt('Enter URL (https://...)');
-      if(url){ document.execCommand('createLink', false, url); setDirty(); }
-      return;
-    }
-    if(btn.id==='imgBtn'){
-      // choose file or paste URL
-      const choice = confirm('OK to upload from file. Cancel to insert by URL.');
-      if(choice){ $('#imgUpload').click(); }
-      else{
-        const url = prompt('Image URL (https://...)');
-        if(url){ insertImage(url); }
-      }
-      return;
-    }
-  });
-
-  $('#imgUpload').addEventListener('change', (e)=>{
-    const file = e.target.files[0]; if(!file) return;
-    const reader = new FileReader();
-    reader.onload = () => insertImage(reader.result);
-    reader.readAsDataURL(file);
-    e.target.value='';
-  });
-
-  function insertImage(src){
-    const img = document.createElement('img'); img.src=src; img.alt='';
-    const range = getSelection().rangeCount ? getSelection().getRangeAt(0) : null;
-    if(range){ range.insertNode(img); }
-    else{ $('#canvas .section').appendChild(img); }
-    // trigger input capture
-    const active = state.sections.find(s=>s.id===state.activeId);
-    active.html = $('#canvas .section').innerHTML; setDirty();
-  }
-
-  // Sidebar buttons
-  $('#addSectionBtn').addEventListener('click', ()=>{
-    const id = crypto.randomUUID();
-    const title = prompt('New section title','New Section') || 'New Section';
-    state.sections.push({id, title, html:`<h2>${escapeHtml(title)}</h2><p>Start writing...</p>`});
-    state.activeId = id;
-    setDirty(); renderTabs(); renderSections();
-  });
-
-  $('#deleteSectionBtn').addEventListener('click', ()=>{
-    if(state.sections.length<=1) return alert('At least one section is required.');
-    if(!confirm('Delete current section?')) return;
-    const idx = state.sections.findIndex(s=>s.id===state.activeId);
-    state.sections.splice(idx,1);
-    state.activeId = state.sections[Math.max(0, idx-1)].id;
-    setDirty(); renderTabs(); renderSections();
-  });
-
-  $('#saveBtn').addEventListener('click', save);
-
-  // Export single HTML (self‑contained)
-  $('#exportBtn').addEventListener('click', ()=>{
-    const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'index.html';
-    a.click();
-    URL.revokeObjectURL(a.href);
-  });
-
-  // Import (replace from an .html previously exported)
-  $('#importBtn').addEventListener('click', ()=> $('#importFile').click());
-  $('#importFile').addEventListener('change', (e)=>{
-    const file = e.target.files[0]; if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(reader.result, 'text/html');
-      try{
-        const saved = JSON.parse(doc.querySelector('script[data-snapshot]')?.textContent || '{}');
-        if(saved.sections){ state.sections = saved.sections; state.activeId = saved.activeId || saved.sections[0]?.id; save(); load(); }
-        else{ throw new Error('No snapshot'); }
-      }catch(err){
-        // fallback: try to grab sections from DOM
-        const importedSections = [...doc.querySelectorAll('.section')].map((el,i)=>({id:crypto.randomUUID(), title: doc.title + ' ' + (i+1), html:el.innerHTML}));
-        if(importedSections.length){ state.sections = importedSections; state.activeId = state.sections[0].id; save(); load(); }
-        else{ alert('Could not import from this file.'); }
-      }
-    };
-    reader.readAsText(file);
-  });
-
-  // Embed a hidden JSON snapshot so exported HTML carries content
-  const observer = new MutationObserver(()=>{
-    const payload = JSON.stringify({sections: state.sections, activeId: state.activeId});
-    let snap = document.querySelector('script[data-snapshot]');
-    if(!snap){ snap = document.createElement('script'); snap.type='application/json'; snap.dataset.snapshot='true'; document.body.appendChild(snap); }
-    snap.textContent = payload;
-  });
-  observer.observe(document.body, {subtree:true, childList:true, attributes:true, characterData:true});
-
-  function escapeHtml(s){ return s.replace(/[&<>"] /g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',' ':' '})[c]); }
-
-  // Keyboard shortcuts
-  window.addEventListener('keydown', (e)=>{
-    if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='s'){ e.preventDefault(); save(); }
-  });
-
-  load();
-})();
-</script>
+  <script>
+    // Set year; keep JS minimal and optional
+    (function(){
+      var y = document.getElementById('y');
+      if(y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
 </html>
+
